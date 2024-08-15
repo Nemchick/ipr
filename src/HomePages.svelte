@@ -24,7 +24,6 @@
       users = data.users;
       originalUsers = [...data.users];
     });
-  
     function openModal(modalType) {
       activeModal = modalType;
     }
