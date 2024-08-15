@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.left-1_5{
+left: 5%;
+}
+.left-2_5{
+left: 23%;
+}
+.left-3_5{
+left: 42%;
+}
+.left-4_5{
+left: 62%;
+}
+.left-5_5{
+    left: 81%;
+}
