@@ -1,6 +1,6 @@
 <script>
     
-    export let activeModal;
+    
     export let closeModal;
     export let sortAscending;
     export let sortDescending;

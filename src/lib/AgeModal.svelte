@@ -1,5 +1,4 @@
 <script>
-    export let activeModal;
     export let closeModal;
     export let sortAscending; 
     export let sortDescending; 
@@ -26,7 +25,6 @@
       <div class="flex gap-2">
         <input type="number" placeholder="from" class="border-solid border-2 rounded-xl border-slate-500 p-1 w-20" bind:value={fromAge} on:blur={() => updateFromAge(fromAge)} />
         <input type="number" placeholder="to" class="border-solid border-2 rounded-xl border-slate-500 p-1 w-20" bind:value={toAge} on:blur={() => updateToAge(toAge)} />
-        
       </div>
       <div class="flex gap-10 justify-center">
         <button on:click={filterAge}>Filter</button> 

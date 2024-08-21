@@ -67,22 +67,26 @@
   function sortDescendingGender() {
       users = users.slice().sort((a, b) => b.gender.localeCompare(a.gender));
   }
-  async function filterAge() { 
-      if (fromAge !== null && toAge !== null) {
-        users = users.filter(user => user.age >= fromAge && user.age <= toAge);
-        sortAscendingAge();
-      } else {
-        users = [...originalUsers]; 
-      }
+  function filterAge() { 
+    // Проверка на наличие нечисловых символов в fromAge и toAge
+    if (/[^0-9]/.test(fromAge) || (fromAge !== null && /[^0-9]/.test(toAge))) {
+      alert("Введите только числа в поля 'from' и 'to'");
+      return;
     }
+
+    if (fromAge !== null && toAge !== null) {
+      users = users.filter(user => user.age >= fromAge && user.age <= toAge);
+      sortAscendingAge();
+    } else {
+      users = [...originalUsers]; 
+    }
+  }
     function updateFromAge(newFromAge) {
       fromAge = newFromAge;
-      filterAge();
     }
   
     function updateToAge(newToAge) {
       toAge = newToAge;
-      filterAge();
     }
     function handleSearch() {
       if (searchTerm.trim() === '') {
@@ -133,7 +137,7 @@
     }
     </script>
   
-    <main>
+    <main >
       <div class="m-auto mt-5 w-5/6">
         <div class="m-auto bg-slate-100 mt-5 w-5/6 p-3 rounded-full flex justify-between relative">
           <div class="flex w-4/6 gap-8">
@@ -142,6 +146,8 @@
           </div> 
           <button on:click={openSettingsModal}><img class=" w-10" src={Setting} alt="" /></button>
           {#if showSettingsModal}
+          <button on:click={closeSettingsModal}  class="w-full h-screen top-0 left-0 fixed">
+          </button>
             <div title="Settings" class="absolute bg-slate-200 rounded-2xl  z-10  right-14">
               <div class="relative flex flex-col gap-3 p-7 ">
               <button class="absolute right-2 top-2" on:click={closeSettingsModal}>x</button>
@@ -154,7 +160,7 @@
             </div>
           {/if}
         </div>
-      <div class="m-auto mt-5 w-5/6">
+      <div  class="m-auto mt-5 w-5/6">
         <div class="bg-slate-200 p-5 rounded-t-2xl flex relative">
           <div class="w-3"></div>
           <button class="w-1/5" on:click={() => openModal('id')}>ID</button>
@@ -162,16 +168,16 @@
           <button class="w-1/5" on:click={() => openModal('email')}>Email</button>
           <button class="w-1/5" on:click={() => openModal('age')}>Age</button>
           <button class="w-1/5" on:click={() => openModal('gender')}>gender</button>
-          
+          {#if activeModal}
+          <button on:click={closeModal}  class="w-full h-screen top-0 left-0 fixed">
+          </button>
         {#if activeModal === "id"}
           <IdModal 
-          activeModal={activeModal} 
           closeModal={closeModal} 
           sortAscending={sortAscending} 
           sortDescending={sortDescending}  /> 
           {:else if activeModal === "age"}
           <AgeModal 
-          activeModal={activeModal}
           closeModal={closeModal}
           sortAscending={sortAscendingAge}
           sortDescending={sortDescendingAge}
@@ -182,24 +188,21 @@
           updateToAge={updateToAge}/>
           {:else if activeModal === "name"}
           <NameModal 
-          activeModal={activeModal} 
           closeModal={closeModal} 
           sortAscending={sortAscendingFio} 
           sortDescending={sortDescendingFio}  />
           {:else if activeModal === "email"}
           <EmailModal 
-          activeModal={activeModal} 
           closeModal={closeModal} 
           sortAscending={sortAscendingEmail} 
           sortDescending={sortDescendingEmail}  />
           {:else if activeModal === "gender"}
           <GenderModal 
-          activeModal={activeModal} 
           closeModal={closeModal} 
           sortAscending={sortAscendingGender} 
           sortDescending={sortDescendingGender}  />
         {/if}
-          
+      {/if}
         </div>
   
         <UserList users={users} />
