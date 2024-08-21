@@ -126,6 +126,7 @@
     }
     function setSearchBy(key) {
       searchBy = key;
+      closeSettingsModal();
     }
     
     function openSettingsModal() {
@@ -144,6 +145,7 @@
             <button on:click={handleSearch}><img class=" w-10" src={Search} alt="" /></button>
             <input class="bg-slate-100 w-5/6" placeholder="Поиск" bind:value={searchTerm} on:change={handleSearch} />
           </div> 
+          <div class="flex items-center"><p>{searchBy}</p></div>
           <button on:click={openSettingsModal}><img class=" w-10" src={Setting} alt="" /></button>
           {#if showSettingsModal}
           <button on:click={closeSettingsModal}  class="w-full h-screen top-0 left-0 fixed">
